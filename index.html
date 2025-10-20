@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nhập Mật Khẩu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@100..800&display=swap" rel="stylesheet">
+    <style>
+
+        body {
+            font-family: "Playpen Sans", cursive;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            height: 100dvh; /* Dynamic viewport height for mobile */
+            overflow-x: hidden;
+            position: relative;
+            background: linear-gradient(135deg, #ffeef8 0%, #fff5f7 50%, #f0f9ff 100%);
+            padding: 10px;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+            padding: 0 10px;
+        }
+        
+        h1 {
+        font-family: "Playpen Sans", cursive;
+        color: rgb(0, 0, 0);
+        font-size: 42px;
+        margin-bottom: 32px;
+        text-shadow: 0 0 4px rgba(145, 145, 145, 0.7);
+        }
+        .content {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            display: flex;
+            gap: 50px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .avatar-section {
+            max-width: 220px;
+        }
+        
+        .avatar-box {
+            background: #fff;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            
+        }
+        
+        .avatar-box img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+        
+        .status {
+            color: #4ade80;
+            font-size: 14px;
+            font-weight: 600;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        
+        .status.show {
+            margin: 20px 0 0 0;
+            display: flex;
+        }
+        
+        .status::before {
+            content: "✓";
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            background: #4ade80;
+            color: white;
+            border-radius: 50%;
+            font-size: 12px;
+        }
+        
+        .keypad-section {
+            flex: auto;
+            width: 200px;
+        }
+        
+        .display {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-size: 28px;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            min-height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2d2d2d;
+            font-weight: 600;
+            position: relative;
+        }
+        
+        .display.placeholder::before {
+            content: "******";
+            color: #9ca3af;
+            font-weight: 400;
+        }
+        
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+        
+        .key {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 18px;
+            font-size: 24px;
+            font-weight: 600;
+            color: #2d2d2d;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: "Playpen Sans", cursive;
+        }
+        
+        .key:hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .key:active {
+            transform: translateY(0);
+        }
+        
+        .key.action {
+            background: #d1d5db;
+            color: white;
+            font-size: 20px;
+        }
+        
+        .key.action:hover {
+            background: #9ca3af;
+        }
+        
+        .key.confirm {
+            background: #a8a8a8;
+        }
+        
+        .key.clear {
+            background: #b8b8b8;
+        }
+
+        /* iPhone và Mobile Responsive */
+        @media (max-width: 428px) {
+            /* iPhone 14 Pro Max, 13 Pro Max */
+            body {
+                padding: 5px;
+            }
+            
+            .container {
+                max-width: 100%;
+                padding: 0 5px;
+            }
+            
+            h1 {
+                font-size: 28px;
+                margin-bottom: 20px;
+                text-shadow: 0 0 2px rgba(145, 145, 145, 0.5);
+            }
+            
+            .content {
+                padding: 20px;
+                gap: 20px;
+                flex-direction: column;
+                align-items: center;
+                border-radius: 20px;
+            }
+            
+            .avatar-section {
+                max-width: 100%;
+                width: 100%;
+                order: 2;
+            }
+            
+            .avatar-box {
+                width: 150px;
+                height: 150px;
+                margin: 0 auto;
+            }
+            
+            .avatar-box img {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .keypad-section {
+                width: 100%;
+                max-width: 300px;
+                order: 1;
+            }
+            
+            .display {
+                font-size: 20px;
+                letter-spacing: 4px;
+                padding: 12px 16px;
+                min-height: 48px;
+                margin-bottom: 15px;
+            }
+            
+            .keypad {
+                gap: 8px;
+            }
+            
+            .key {
+                padding: 12px;
+                font-size: 18px;
+                border-radius: 10px;
+                min-height: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .status.show {
+                margin: 15px 0 0 0;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 390px) {
+            /* iPhone 14, 13 */
+            h1 {
+                font-size: 24px;
+                margin-bottom: 15px;
+            }
+            
+            .content {
+                padding: 15px;
+                gap: 15px;
+            }
+            
+            .avatar-box {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .avatar-box img {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .display {
+                font-size: 18px;
+                letter-spacing: 3px;
+                padding: 10px 14px;
+                min-height: 44px;
+            }
+            
+            .key {
+                padding: 10px;
+                font-size: 16px;
+                min-height: 45px;
+            }
+        }
+
+        @media (max-width: 375px) {
+            /* iPhone 12, 11 */
+            h1 {
+                font-size: 22px;
+            }
+            
+            .content {
+                padding: 12px;
+            }
+            
+            .avatar-box {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .avatar-box img {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .display {
+                font-size: 16px;
+                letter-spacing: 2px;
+            }
+            
+            .key {
+                padding: 8px;
+                font-size: 14px;
+                min-height: 40px;
+            }
+        }
+
+        /* Landscape orientation cho iPhone */
+        @media (max-height: 500px) and (orientation: landscape) {
+            body {
+                padding: 5px;
+            }
+            
+            .content {
+                flex-direction: row;
+                padding: 15px;
+                gap: 20px;
+            }
+            
+            .avatar-section {
+                order: 1;
+                max-width: 150px;
+            }
+            
+            .keypad-section {
+                order: 2;
+                flex: 1;
+            }
+            
+            h1 {
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+            
+            .avatar-box {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .avatar-box img {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        /* Touch improvements */
+        .key {
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+        
+        .key:active {
+            transform: scale(0.95);
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>NHẬP PASS ĐI NGƯỜI ĐẸP</h1>
+        <div class="content">
+            <div class="avatar-section">
+                <div class="avatar-box">
+                    <img src="assets/a1.jpg" alt="Avatar">
+                </div>
+                <div class="status">Chính Xác!</div>
+            </div>
+            
+            <div class="keypad-section">
+                <div class="display placeholder" id="display"></div>
+                <div class="keypad">
+                    <button class="key" onclick="addDigit('1')">1</button>
+                    <button class="key" onclick="addDigit('2')">2</button>
+                    <button class="key" onclick="addDigit('3')">3</button>
+                    <button class="key" onclick="addDigit('4')">4</button>
+                    <button class="key" onclick="addDigit('5')">5</button>
+                    <button class="key" onclick="addDigit('6')">6</button>
+                    <button class="key" onclick="addDigit('7')">7</button>
+                    <button class="key" onclick="addDigit('8')">8</button>
+                    <button class="key" onclick="addDigit('9')">9</button>
+                    <button class="key action confirm" onclick="checkPassword()">✓</button>
+                    <button class="key" onclick="addDigit('0')">0</button>
+                    <button class="key action clear" onclick="clearDisplay()">✕</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <script>
+        let password = '';
+        const correctPassword = '050325';
+        
+        function addDigit(digit) {
+            if (password.length < 6) {
+                password += digit;
+                updateDisplay();
+            }
+        }
+        
+        function clearDisplay() {
+            password = '';
+            updateDisplay();
+        }
+        
+        function updateDisplay() {
+            const display = document.getElementById('display');
+            if (password.length === 0) {
+                display.classList.add('placeholder');
+                display.textContent = '';
+            } else {
+                display.classList.remove('placeholder');
+                display.textContent = password;
+            }
+        }
+        
+        function checkPassword() {
+            if (password === correctPassword) {
+                // Hiện status "Chính Xác!"
+                const status = document.querySelector('.status');
+                status.classList.add('show');
+                             
+                setTimeout(() => {
+                    // Chuyển đến trang intro.html sau 1.5 giây
+                    window.location.href = 'intro.html';
+                }, 500);
+            } else if (password.length > 0) {
+                // Hiệu ứng rung khi sai
+                const display = document.getElementById('display');
+                display.style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    display.style.animation = '';
+                }, 500);
+            }
+        }
+        
+        // Thêm hiệu ứng rung
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-10px); }
+                75% { transform: translateX(10px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
